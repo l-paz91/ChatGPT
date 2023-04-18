@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Biscuit Clicker</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        #clickerButton {
+            font-size: 36px;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        #counter {
+            font-size: 48px;
+            margin-top: 30px;
+        }
+
+        #buildingContainer {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .building {
+            flex: 1;
+            margin: 0 10px;
+            padding: 20px;
+            background-color: #eee;
+        }
+
+        .building h2 {
+            margin-top: 0;
+        }
+
+        .building p {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Biscuit Clicker</h1>
+    <button id="clickerButton">Bake!</button>
+    <p id="counter">0</p>
+
+    <div id="buildingContainer">
+        <div class="building" id="cursorsBuilding">
+            <h2>Cursors</h2>
+            <p>Cost: <span id="cursorsCost">10</span> biscuits</p>
+            <p>Clicks per second: <span id="cursorsCPS">0</span></p>
+            <button id="buyCursorsButton">Buy</button>
+        </div>
+        <div class="building" id="grandmasBuilding">
+            <h2>Grandmas</h2>
+            <p>Cost: <span id="grandmasCost">100</span> biscuits</p>
+            <p>Clicks per second: <span id="grandmasCPS">0</span></p>
+            <button id="buyGrandmasButton">Buy</button>
+        </div>
+    </div>
+
+    <script>
+        // Get the button, counter, and building elements        
+        const counter = document.getElementById('counter');
+
+        let count = 0;
+        let cursorsCount = 0;
+        let cursorsCPS = 0;
+        let cursorsCost = 10;
+        let grandmasCount = 0;
+        let grandmasCPS = 0;
+        let grandmasCost = 100;
+
+        // Update the count and click rate per second every second
+        setInterval(() => {
+            count += cursorsCPS + grandmasCPS;
+            document.getElementById('counter').textContent = count;
+        }, 1000);
+
+        // Add event listener to the "Bake!" button
+        const clickButton = document.getElementById('clickerButton');
+        clickButton.addEventListener('click', () => 
+        {
+            ++count;
+            // Update the counter element with the new value
+            counter.textContent = count;
+        });
+
+        // Add event listener to the "Buy Cursors" button
+        const buyCursorsButton = document.getElementById('buyCursorsButton');
+        buyCursorsButton.addEventListener('click', () => 
+        {
+            if (count >= cursorsCost) 
+            {
+                count -= cursorsCost;
+                document.getElementById('counter').textContent = count;
+                cursorsCount++;
+                document.getElementById('cursorsCount').textContent = cursorsCount;
+                cursorsCPS += 1;
+                document.getElementById('cursorsCPS').textContent = cursorsCPS;
+                cursorsCost = Math.ceil(cursorsCost * 1.25);
+                document.getElementById('cursorsCost').textContent = cursorsCost;
+            }
+        });
+
+        // Add event listener to the "Buy Grandmas" button
+        const buyGrandmasButton = document.getElementById('buyGrandmasButton');
+        buyGrandmasButton.addEventListener('click', () => {
+            if (count >= grandmasCost) {
+                count -= grandmasCost;
+                document.getElementById('counter').textContent = count;
+                grandmasCount++;
+                document.getElementById('grandmasCount').textContent = grandmasCount;
+                grandmasCPS += 15;
+                document.getElementById('grandmasCPS').textContent = grandmasCPS;
+                grandmasCost = Math.ceil(grandmasCost * 1.25);
+                document.getElementById('grandmasCost').textContent = grandmasCost;
+            }
+        });
+    </script>
+</body>
+</html>

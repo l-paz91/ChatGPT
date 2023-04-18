@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Biscuit Clicker</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        #clickerButton {
+            font-size: 36px;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        #counter {
+            font-size: 48px;
+            margin-top: 30px;
+        }
+
+        #buildingContainer {
+            width: 33.33%;
+            margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .building {
+            flex: 1;
+            margin: 0 10px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #eee;
+        }
+
+        .building h2 {
+            margin-top: 0;
+        }
+
+        .building p {
+            margin-bottom: 0;
+        }
+
+        #goldenBiscuit {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 10px;
+            background-color: gold;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Biscuit Clicker</h1>
+    <button id="clickButton">Bake!</button>
+    <p>Count: <span id="counter">0</span></p>
+    <div class="container">
+        <h2>Buildings</h2>
+        <div id="buildingContainer">
+            <div id="cursorsContainer" class="building">
+                <p>Cursors: <span id="cursorsCount">0</span></p>
+                <p>Clicks Per Second: <span id="cursorsCPS">0</span></p>
+                <p>Cost: <span id="cursorsCost">10</span></p>
+                <button id="buyCursorsButton">Buy Cursors</button>
+            </div>
+            <div id="grandmasContainer" class="building">
+                <p>Grandmas: <span id="grandmasCount">0</span></p>
+                <p>Clicks Per Second: <span id="grandmasCPS">0</span></p>
+                <p>Cost: <span id="grandmasCost">100</span></p>
+                <button id="buyGrandmasButton">Buy Grandmas</button>
+            </div>
+        </div>
+    </div>
+    <div id="goldenBiscuit">Golden Biscuit</div>
+
+    <script>
+        const clickButton = document.getElementById('clickButton');
+        const counter = document.getElementById('counter');
+        const buyCursorsButton = document.getElementById('buyCursorsButton');
+        const cursorsCount = document.getElementById('cursorsCount');
+        const cursorsCPS = document.getElementById('cursorsCPS');
+        const cursorsCost = document.getElementById('cursorsCost');
+        const buyGrandmasButton = document.getElementById('buyGrandmasButton');
+        const grandmasCount = document.getElementById('grandmasCount');
+        const grandmasCPS = document.getElementById('grandmasCPS');
+        const grandmasCost = document.getElementById('grandmasCost');
+        const goldenBiscuit = document.getElementById('goldenBiscuit');
+
+        let count = 0;
+        let cursors = 0;
+        let grandmas = 0;
+
+        // Click event listener for main button
+        clickButton.addEventListener('click', () => {
+            count++;
+            counter.textContent = count;
+        });
+
+        // Click event listener for buying cursors
+        buyCursorsButton.addEventListener('click', () => {
+            const cost = parseInt(cursorsCost.textContent);
+            if (count >= cost) {
+                count -= cost;
+                cursors++;
+                counter.textContent = count;
+                cursorsCount.textContent = cursors;
+                cursorsCPS.textContent = cursors;
+                cursorsCost.textContent = Math.ceil(cost * 1.25);
+            }
+        });
+
+        // Click event
+        buyGrandmasButton.addEventListener('click', () => {
+            const cost = parseInt(grandmasCost.textContent);
+            if (count >= cost) {
+                count -= cost;
+                grandmas++;
+                counter.textContent = count;
+                grandmasCount.textContent = grandmas;
+                grandmasCPS.textContent = grandmas * 15;
+                grandmasCost.textContent = Math.ceil(cost * 1.25);
+            }
+        });
+
+        // Game loop for passive clicks
+        setInterval(() => {
+            count += cursors + (grandmas * 15);
+            counter.textContent = count;
+        }, 1000);
+
+        // Golden biscuit timer
+        setInterval(() => {
+            const random = Math.floor(Math.random() * 5) + 1;
+            if (random === 1) {
+                goldenBiscuit.style.display = 'block';
+            }
+        }, 10000);
+
+        // Click event listener for golden biscuit
+        goldenBiscuit.addEventListener('click', () => {
+            goldenBiscuit.textContent = 'Lucky!';
+            count += 1000;
+            counter.textContent = count;
+            goldenBiscuit.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Biscuit Clicker</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        #clickerButton {
+            font-size: 36px;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        #counter {
+            font-size: 48px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Biscuit Clicker</h1>
+    <button id="clickerButton">Bake!</button>
+    <p id="counter">0</p>
+
+    <script>
+        // Get the button and counter elements
+        const clickerButton = document.getElementById('clickerButton');
+        const counter = document.getElementById('counter');
+
+        // Initialize the counter value
+        let count = 0;
+
+        // Add event listener to the button
+        clickerButton.addEventListener('click', () => {
+            // Increase the counter value when the button is clicked
+            count++;
+            // Update the counter element with the new value
+            counter.textContent = count;
+        });
+    </script>
+</body>
+</html>

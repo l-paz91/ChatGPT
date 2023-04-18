@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Biscuit Clicker</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        #clickerButton {
+            font-size: 36px;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        #counter {
+            font-size: 48px;
+            margin-top: 30px;
+        }
+
+        #buildingContainer {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .building {
+            flex: 1;
+            margin: 0 10px;
+            padding: 20px;
+            background-color: #eee;
+        }
+
+        .building h2 {
+            margin-top: 0;
+        }
+
+        .building p {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Biscuit Clicker</h1>
+    <button id="clickerButton">Bake!</button>
+    <p id="counter">0</p>
+
+    <div id="buildingContainer">
+        <div class="building" id="cursorsBuilding">
+            <h2>Cursors</h2>
+            <p>Cost: <span id="cursorsCost">10</span> biscuits</p>
+            <p>Clicks per second: <span id="cursorsCPS">0</span></p>
+            <button id="buyCursorsButton">Buy</button>
+        </div>
+        <div class="building" id="grandmasBuilding">
+            <h2>Grandmas</h2>
+            <p>Cost: <span id="grandmasCost">100</span> biscuits</p>
+            <p>Clicks per second: <span id="grandmasCPS">0</span></p>
+            <button id="buyGrandmasButton">Buy</button>
+        </div>
+    </div>
+
+    <script>
+        // Get the button, counter, and building elements
+        const clickerButton = document.getElementById('clickerButton');
+        const counter = document.getElementById('counter');
+        const cursorsBuilding = document.getElementById('cursorsBuilding');
+        const grandmasBuilding = document.getElementById('grandmasBuilding');
+
+        // Initialize the counter value and building costs
+        let count = 0;
+        let cursorsCost = 10;
+        let grandmasCost = 100;
+
+        // Initialize the click rates per second for each building
+        let cursorsCPS = 0;
+        let grandmasCPS = 0;
+
+        // Add event listener to the button
+        clickerButton.addEventListener('click', () => {
+            // Increase the counter value when the button is clicked
+            count += 1 + cursorsCPS + grandmasCPS;
+            // Update the counter element with the new value
+            counter.textContent = count;
+        });
+
+        // Add event listener to the "Buy Cursors" button
+        const buyCursorsButton = document.getElementById('buyCursorsButton');
+        buyCursorsButton.addEventListener('click', () => {
+            if (count >= cursorsCost) {
+                // Deduct the cost of Cursors from the counter
+                count -= cursorsCost;
+                // Update the counter element with the new value
+                counter.textContent = count;
+                // Increment the cursors click rate per second
+                cursorsCPS += 1;
+ // Update the cursors building element with the new click rate per second
+ document.getElementById('cursorsCPS').textContent = cursorsCPS;
+                // Increase the cursors building cost by a quarter
+                cursorsCost = Math.ceil(cursorsCost * 1.25);
+                // Update the cursors building cost element with the new value
+                document.getElementById('cursorsCost').textContent = cursorsCost;
+            }
+        });
+
+        // Add event listener to the "Buy Grandmas" button
+        const buyGrandmasButton = document.getElementById('buyGrandmasButton');
+        buyGrandmasButton.addEventListener('click', () => {
+            if (count >= grandmasCost) {
+                // Deduct the cost of Grandmas from the counter
+                count -= grandmasCost;
+                // Update the counter element with the new value
+                counter.textContent = count;
+                // Increment the grandmas click rate per second
+                grandmasCPS += 15;
+                // Update the grandmas building element with the new click rate per second
+                document.getElementById('grandmasCPS').textContent = grandmasCPS;
+                // Increase the grandmas building cost by a quarter
+                grandmasCost = Math.ceil(grandmasCost * 1.25);
+                // Update the grandmas building cost element with the new value
+                document.getElementById('grandmasCost').textContent = grandmasCost;
+            }
+        });
+
+        // Update the count and click rate per second every second
+        setInterval(() => 
+        {
+            count += cursorsCPS + grandmasCPS;
+            document.getElementById('counter').textContent = count;
+        }, 1000);
+    </script>
+</body>
+</html>
+This code adds event listeners to the "Buy Cursors" and "Buy Grandmas" buttons, which allow the user to purchase cursors and grandmas respectively. The code updates the counter, click rate per second, and building costs accordingly based on the user's purchases. The building costs increase by a quarter with each purchase.
+
+
+
+
+
