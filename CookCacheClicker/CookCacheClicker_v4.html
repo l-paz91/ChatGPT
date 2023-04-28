@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Idle Clicker Game</title>
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .clicker-button {
+            font-size: 48px;
+            padding: 20px;
+            background-color: #2196F3;
+            color: #FFF;
+            cursor: pointer;
+        }
+        .score {
+            font-size: 36px;
+            margin-top: 20px;
+        }
+        .upgrade-container {
+            margin-top: 20px;
+            margin-left: 50px;
+            width: 250px;
+            padding: 10px;
+            background-color: #F3EFEF;
+            border: 1px solid #CCC;
+        }
+        .upgrade-container h3 {
+            margin: 0;
+        }
+        .upgrade-container p {
+            margin: 10px 0;
+        }
+        .upgrade-container button {
+            margin-top: 10px;
+            background-color: #2196F3;
+            color: #FFF;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <h1>Cook Cache Clicker</h1>
+            <button class="clicker-button">Cook!</button>
+            <p class="score">Assets: <span id="score">0</span></p>
+        </div>
+        <div class="upgrade-container" id="upgradeContainer1">
+            <h3>Auto-Clicker Script</h3>
+            <p id="upgradeDescription1">C# scripts cooking 1 asset per second</p>
+            <p id="upgradeCost1">Cost: 10</p>
+            <button class="upgradeButton" id="upgradeButton1">Buy</button>
+        </div>
+        <div class="upgrade-container" id="upgradeContainer2">
+            <h3>Jacob</h3>
+            <p id="upgradeDescription2">Jacob's are wizards from Denmark. Cooking 10 assets per second.</p>
+            <p id="upgradeCost2">Cost: 50</p>
+            <button class="upgradeButton" id="upgradeButton2">Buy</button>
+        </div>
+    </div>
+
+    <script>
+        let score = 0;
+        let passiveClicks1 = 0;
+        let passiveClicks2 = 0;
+        let upgradeCost1 = 10;
+        let upgradeCost2 = 50;
+        const clickerButton = document.querySelector('.clicker-button');
+        const scoreElement = document.getElementById('score');
+        const upgradeContainer1 = document.getElementById('upgradeContainer1');
+        const upgradeContainer2 = document.getElementById('upgradeContainer2');
+        const upgradeDescription1 = document.getElementById('upgradeDescription1');
+        const upgradeDescription2 = document.getElementById('upgradeDescription2');
+        const upgradeCostElement1 = document.getElementById('upgradeCost1');
+        const upgradeCostElement2 = document.getElementById('upgradeCost2');
+        const upgradeButton1 = document.getElementById('upgradeButton1');
+        const upgradeButton2 = document.getElementById('upgradeButton2');
+
+        clickerButton.addEventListener('click', () => {
+            score += 1 + passiveClicks1 + passiveClicks2;
+            scoreElement.textContent = score;
+        });
+
+        upgradeButton1.addEventListener('click', () => {
+            if (score >= upgradeCost1) {
+                score -= upgradeCost1;
+                passiveClicks1 += 1;
+                upgradeCost1 *= 2;
+                //upgradeDescription1.textContent = `Upgrade to cook ${passiveClicks1} passive assets per second`;
+                upgradeCostElement1.textContent = `Cost: ${upgradeCost1}`;
+                scoreElement.textContent = score;
+                //upgradeContainer1.style.display = 'none'; // hide upgrade container 1 after purchase
+            }
+        });
+
+        upgradeButton2.addEventListener('click', () => {
+            if (score >= upgradeCost2) {
+                score -= upgradeCost2;
+                passiveClicks2 += 10;
+                upgradeCost2 *= 2;
+                //upgradeDescription2.textContent = `Upgrade to cook ${passiveClicks2} passive assets per second`;
+                upgradeCostElement2.textContent = `Cost: ${upgradeCost2}`;
+                scoreElement.textContent = score;
+                //upgradeContainer2.style.display = 'none'; // hide upgrade container 2 after purchase
+            }
+        });
+
+        // Automatic passive clicks
+        setInterval(() => {
+            score += passiveClicks1 + passiveClicks2;
+            scoreElement.textContent = score;
+        }, 1000);
+    </script>
+</body>
+</html>
+
