@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Idle Clicker Game</title>
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 100px;
+        }
+        .clicker-button {
+            font-size: 48px;
+            padding: 20px;
+            background-color: #2196F3;
+            color: #FFF;
+            cursor: pointer;
+        }
+        .score {
+            font-size: 36px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Idle Clicker Game</h1>
+        <button class="clicker-button">Click me!</button>
+        <p class="score">Score: <span id="score">0</span></p>
+    </div>
+
+    <script>
+        let score = 0;
+        const clickerButton = document.querySelector('.clicker-button');
+        const scoreElement = document.getElementById('score');
+
+        clickerButton.addEventListener('click', () => {
+            score++;
+            scoreElement.textContent = score;
+        });
+    </script>
+</body>
+</html>
