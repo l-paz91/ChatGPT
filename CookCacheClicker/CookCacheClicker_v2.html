@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Idle Clicker Game</title>
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 100px;
+        }
+        .clicker-button {
+            font-size: 48px;
+            padding: 20px;
+            background-color: #2196F3;
+            color: #FFF;
+            cursor: pointer;
+        }
+        .score {
+            font-size: 36px;
+            margin-top: 20px;
+        }
+        .upgrade {
+            display: inline-block;
+            text-align: left;
+            margin-top: -1000px;
+            margin-left: 800px;
+            width: 250px;
+            padding: 10px;
+            background-color: #F3EFEF;
+            border: 1px solid #CCC;
+        }
+        .upgrade h3 {
+            margin: 0;
+        }
+        .upgrade p {
+            margin: 10px 0;
+        }
+        .upgrade button {
+            margin-top: 10px;
+            background-color: #2196F3;
+            color: #FFF;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Idle Clicker Game</h1>
+        <button class="clicker-button">Cook!</button>
+        <p class="score">Score: <span id="score">0</span></p>
+        <div class="upgrade" id="upgradeContainer">
+            <h3>Upgrade</h3>
+            <p id="upgradeDescription">Upgrade to get 10 passive clicks per second</p>
+            <p id="upgradeCost">Cost: 50</p>
+            <button id="upgradeButton">Upgrade</button>
+        </div>
+    </div>
+
+    <script>
+        let score = 0;
+        let passiveClicks = 0;
+        let upgradeCost = 50;
+        const clickerButton = document.querySelector('.clicker-button');
+        const scoreElement = document.getElementById('score');
+        const upgradeContainer = document.getElementById('upgradeContainer');
+        const upgradeDescription = document.getElementById('upgradeDescription');
+        const upgradeCostElement = document.getElementById('upgradeCost');
+        const upgradeButton = document.getElementById('upgradeButton');
+
+        clickerButton.addEventListener('click', () => {
+            score += 1 + passiveClicks;
+            scoreElement.textContent = score;
+        });
+
+        upgradeButton.addEventListener('click', () => {
+            if (score >= upgradeCost) {
+                score -= upgradeCost;
+                passiveClicks += 10;
+                upgradeCost *= 2;
+                upgradeDescription.textContent = `Upgrade to get ${10 + passiveClicks} passive clicks per second`;
+                upgradeCostElement.textContent = `Cost: ${upgradeCost}`;
+                scoreElement.textContent = score;
+            }
+        });
+
+        setInterval(() => {
+            score += passiveClicks;
+            scoreElement.textContent = score;
+        }, 1000);
+    </script>
+</body>
+</html>
